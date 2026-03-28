@@ -1,4 +1,4 @@
-<?php require_once '../classes/Acronimo.php'; ?>
+<?php require_once '../classes/1Acronimo.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
