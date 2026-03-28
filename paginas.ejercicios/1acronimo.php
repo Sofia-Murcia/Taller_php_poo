@@ -1,8 +1,9 @@
-<?php require_once '../classes/1Acronimo.php';
+<?php
+require_once '../classes/1Acronimo.php';
 
-$resultado  = null;
-$frase      = '';
-$error      = '';
+$resultado = null;
+$frase     = '';
+$error     = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $frase = trim($_POST['frase'] ?? '');
@@ -43,14 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="form-block">
       <div class="field">
         <label for="frase">Frase completa</label>
-        <input
-          type="text"
-          id="frase"
-          name="frase"
+        <input type="text" id="frase" name="frase"
           value="<?= htmlspecialchars($frase) ?>"
-          placeholder="Ej: As Soon As Possible"
-          required
-        >
+          placeholder="Ej: As Soon As Possible" required>
       </div>
       <button type="submit" class="btn btn-primary">Convertir</button>
     </form>
@@ -67,6 +63,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

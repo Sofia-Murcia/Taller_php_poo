@@ -8,11 +8,8 @@ class Acronimo {
     }
 
     public function convertir(): string {
-        // Reemplaza guiones por espacios (son separadores de palabras)
         $texto = str_replace('-', ' ', $this->frase);
-        // Elimina todos los signos de puntuación excepto letras y espacios
         $texto = preg_replace('/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/u', '', $texto);
-        // Divide en palabras
         $palabras = preg_split('/\s+/', trim($texto));
         $acronimo = '';
         foreach ($palabras as $palabra) {
