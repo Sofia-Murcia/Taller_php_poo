@@ -1,4 +1,5 @@
 <?php
+
 class Acronimo {
     private string $frase;
 
@@ -7,19 +8,23 @@ class Acronimo {
     }
 
     public function convertir(): string {
-        // Reemplaza guiones por espacios
+        // Reemplaza guiones por espacios (son separadores de palabras)
         $texto = str_replace('-', ' ', $this->frase);
-        // Elimina signos de puntuación excepto espacios y letras
-        $texto = preg_replace('/[^a-zA-Z\s]/', '', $texto);
-        // Obtiene la primera letra de cada palabra en mayúscula
-        $palabras = explode(' ', trim($texto));
+        // Elimina todos los signos de puntuación excepto letras y espacios
+        $texto = preg_replace('/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/u', '', $texto);
+        // Divide en palabras
+        $palabras = preg_split('/\s+/', trim($texto));
         $acronimo = '';
         foreach ($palabras as $palabra) {
             if (!empty($palabra)) {
-                $acronimo .= strtoupper($palabra[0]);
+                $acronimo .= mb_strtoupper(mb_substr($palabra, 0, 1));
             }
         }
         return $acronimo;
+    }
+
+    public function getFrase(): string {
+        return $this->frase;
     }
 }
 ?>
