@@ -10,7 +10,6 @@ class Sucesion {
     public function fibonacci(): array {
         if ($this->numero <= 0) return [];
         if ($this->numero === 1) return [0];
-
         $serie = [0, 1];
         for ($i = 2; $i < $this->numero; $i++) {
             $serie[] = $serie[$i - 1] + $serie[$i - 2];
@@ -31,13 +30,6 @@ class Sucesion {
 
     public function getNumero(): int {
         return $this->numero;
-    }
-
-    public function factorialFinal(): int {
-        if ($this->numero < 0) return 0;
-        $r = 1;
-        for ($i = 1; $i <= $this->numero; $i++) $r *= $i;
-        return $r;
     }
 }
 ?>

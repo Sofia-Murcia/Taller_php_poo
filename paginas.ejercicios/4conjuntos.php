@@ -13,22 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($inputA === '' || $inputB === '') {
         $error = 'Por favor ingresa ambos conjuntos.';
     } else {
-        $partesA = preg_split('/[\s,;]+/', $inputA);
-        $partesB = preg_split('/[\s,;]+/', $inputB);
-        $A = array_filter($partesA, fn($v) => is_numeric($v));
-        $B = array_filter($partesB, fn($v) => is_numeric($v));
+        $A = array_values(array_filter(preg_split('/[\s,;]+/', $inputA), fn($v) => is_numeric($v)));
+        $B = array_values(array_filter(preg_split('/[\s,;]+/', $inputB), fn($v) => is_numeric($v)));
 
         if (empty($A) || empty($B)) {
             $error = 'Los conjuntos deben contener números enteros válidos.';
         } else {
-            $obj = new Conjuntos(array_values($A), array_values($B));
+            $obj = new Conjuntos($A, $B);
             $resultado = [
-                'A'           => $obj->getA(),
-                'B'           => $obj->getB(),
-                'union'       => $obj->union(),
-                'interseccion'=> $obj->interseccion(),
-                'difAB'       => $obj->diferenciaAB(),
-                'difBA'       => $obj->diferenciaBA(),
+                'A'            => $obj->getA(),
+                'B'            => $obj->getB(),
+                'union'        => $obj->union(),
+                'interseccion' => $obj->interseccion(),
+                'difAB'        => $obj->diferenciaAB(),
+                'difBA'        => $obj->diferenciaBA(),
             ];
         }
     }
@@ -67,12 +65,14 @@ function setToStr(array $arr): string {
 
     <form method="POST" class="form-block">
       <div class="field">
-        <label for="setA">Conjunto A (números enteros separados por coma)</label>
-        <input type="text" id="setA" name="setA" value="<?= htmlspecialchars($inputA) ?>" placeholder="Ej: 1, 2, 3, 4, 5" required>
+        <label for="setA">Conjunto A (números separados por coma)</label>
+        <input type="text" id="setA" name="setA"
+          value="<?= htmlspecialchars($inputA) ?>" placeholder="Ej: 1, 2, 3, 4, 5" required>
       </div>
       <div class="field">
-        <label for="setB">Conjunto B (números enteros separados por coma)</label>
-        <input type="text" id="setB" name="setB" value="<?= htmlspecialchars($inputB) ?>" placeholder="Ej: 3, 4, 5, 6, 7" required>
+        <label for="setB">Conjunto B (números separados por coma)</label>
+        <input type="text" id="setB" name="setB"
+          value="<?= htmlspecialchars($inputB) ?>" placeholder="Ej: 3, 4, 5, 6, 7" required>
       </div>
       <button type="submit" class="btn btn-primary">Calcular</button>
     </form>
@@ -96,17 +96,16 @@ function setToStr(array $arr): string {
           <span class="set-row-val"><?= setToStr($resultado['interseccion']) ?></span>
         </div>
         <div class="set-row">
-          <span class="set-row-label">A − B (Diferencia)</span>
+          <span class="set-row-label">A − B</span>
           <span class="set-row-val"><?= setToStr($resultado['difAB']) ?></span>
         </div>
         <div class="set-row">
-          <span class="set-row-label">B − A (Diferencia)</span>
+          <span class="set-row-label">B − A</span>
           <span class="set-row-val"><?= setToStr($resultado['difBA']) ?></span>
         </div>
       </div>
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

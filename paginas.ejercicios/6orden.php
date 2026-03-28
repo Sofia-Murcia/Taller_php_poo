@@ -17,11 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($preorden === '' || $inorden === '') {
         $error = 'Ingresa tanto el recorrido preorden como el inorden.';
     } else {
-        // Separa por → , - o espacios
-        $pre = preg_split('/[\s,\-→>]+/u', $preorden);
-        $ino = preg_split('/[\s,\-→>]+/u', $inorden);
-        $pre = array_values(array_filter($pre, fn($v) => $v !== ''));
-        $ino = array_values(array_filter($ino, fn($v) => $v !== ''));
+        $pre = array_values(array_filter(preg_split('/[\s,\-→>]+/u', $preorden), fn($v) => $v !== ''));
+        $ino = array_values(array_filter(preg_split('/[\s,\-→>]+/u', $inorden),  fn($v) => $v !== ''));
 
         if (count($pre) !== count($ino)) {
             $error = 'Los recorridos deben tener la misma cantidad de nodos.';
@@ -62,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="alert alert-info">
       Ingresa los nodos separados por espacios, comas o el símbolo →<br>
-      Ejemplo preorden: A B D E C &nbsp;|&nbsp; Inorden: D B E A C
+      Ejemplo — Preorden: A B D E C &nbsp;|&nbsp; Inorden: D B E A C
     </div>
 
     <?php if ($error): ?>
@@ -72,22 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="form-block">
       <div class="field">
         <label for="preorden">Recorrido Preorden</label>
-        <input type="text" id="preorden" name="preorden" value="<?= htmlspecialchars($preorden) ?>" placeholder="Ej: A B D E C" required>
+        <input type="text" id="preorden" name="preorden"
+          value="<?= htmlspecialchars($preorden) ?>" placeholder="Ej: A B D E C" required>
       </div>
       <div class="field">
         <label for="inorden">Recorrido Inorden</label>
-        <input type="text" id="inorden" name="inorden" value="<?= htmlspecialchars($inorden) ?>" placeholder="Ej: D B E A C" required>
+        <input type="text" id="inorden" name="inorden"
+          value="<?= htmlspecialchars($inorden) ?>" placeholder="Ej: D B E A C" required>
       </div>
       <button type="submit" class="btn btn-primary">Construir Árbol</button>
     </form>
 
     <?php if ($arbol !== null): ?>
-
       <div class="tree-canvas">
         <p class="result-label" style="margin-bottom:1rem">Estructura del árbol</p>
         <pre class="tree-visual"><?= htmlspecialchars($visual) ?></pre>
       </div>
-
       <div class="traversal-list">
         <div class="traversal-row">
           <span class="traversal-label">Preorden</span>
@@ -102,10 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <span class="traversal-val"><?= implode(' → ', array_map('htmlspecialchars', $postResult)) ?></span>
         </div>
       </div>
-
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

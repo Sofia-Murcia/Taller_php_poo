@@ -12,8 +12,6 @@ class Serie {
         return array_sum($this->numeros) / count($this->numeros);
     }
 
-    // La media aritmética es igual al promedio
-    // Aquí calculamos la mediana (valor central)
     public function mediana(): float {
         if (empty($this->numeros)) return 0;
         $sorted = $this->numeros;

@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($numero === '' || !is_numeric($numero)) {
         $error = 'Por favor ingresa un número entero válido.';
     } else {
-        $obj    = new Binario((int)$numero);
+        $obj     = new Binario((int)$numero);
         $binario = $obj->convertir();
-        $pasos  = $obj->pasos();
+        $pasos   = $obj->pasos();
     }
 }
 ?>
@@ -46,14 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="form-block">
       <div class="field">
         <label for="numero">Número entero</label>
-        <input
-          type="number"
-          id="numero"
-          name="numero"
-          value="<?= htmlspecialchars($numero) ?>"
-          placeholder="Ej: 42"
-          required
-        >
+        <input type="number" id="numero" name="numero"
+          value="<?= htmlspecialchars($numero) ?>" placeholder="Ej: 42" required>
       </div>
       <button type="submit" class="btn btn-primary">Convertir</button>
     </form>
@@ -63,15 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="result-label"><?= htmlspecialchars($numero) ?> en binario</p>
         <p class="result-value"><?= htmlspecialchars($binario) ?></p>
       </div>
-
       <?php if ($pasos && $numero != 0): ?>
         <div class="result">
           <p class="result-label">Proceso de conversión</p>
           <ul class="result-list">
             <?php foreach ($pasos as $p): ?>
-              <li>
-                <?= $p['dividendo'] ?> ÷ 2 = <?= $p['cociente'] ?> &nbsp; resto: <strong><?= $p['resto'] ?></strong>
-              </li>
+              <li><?= $p['dividendo'] ?> ÷ 2 = <?= $p['cociente'] ?> &nbsp;&nbsp; resto: <strong><?= $p['resto'] ?></strong></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -79,6 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

@@ -13,10 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($input === '') {
         $error = 'Por favor ingresa al menos un número.';
     } else {
-        // Separa por comas, espacios o punto y coma
-        $partes = preg_split('/[\s,;]+/', $input);
-        $numeros = array_filter($partes, fn($v) => is_numeric($v));
-        $numeros = array_values($numeros);
+        $partes  = preg_split('/[\s,;]+/', $input);
+        $numeros = array_values(array_filter($partes, fn($v) => is_numeric($v)));
 
         if (empty($numeros)) {
             $error = 'No se encontraron números válidos en la entrada.';
@@ -58,30 +56,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="form-block">
       <div class="field">
         <label for="numeros">Serie de números (separados por coma, espacio o punto y coma)</label>
-        <textarea
-          id="numeros"
-          name="numeros"
-          rows="3"
-          placeholder="Ej: 4, 7, 2, 9, 4, 1, 7, 4"
-          required
-        ><?= htmlspecialchars($input) ?></textarea>
+        <textarea id="numeros" name="numeros" rows="3"
+          placeholder="Ej: 4, 7, 2, 9, 4, 1, 7, 4" required><?= htmlspecialchars($input) ?></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Calcular</button>
     </form>
 
     <?php if ($promedio !== null): ?>
-
-      <?php if (!empty($numeros)): ?>
-        <div class="result">
-          <p class="result-label">Números ingresados (<?= count($numeros) ?>)</p>
-          <div class="result-series">
-            <?php foreach ($numeros as $n): ?>
-              <span class="result-tag"><?= htmlspecialchars($n) ?></span>
-            <?php endforeach; ?>
-          </div>
+      <div class="result">
+        <p class="result-label">Números ingresados (<?= count($numeros) ?>)</p>
+        <div class="result-series">
+          <?php foreach ($numeros as $n): ?>
+            <span class="result-tag"><?= htmlspecialchars($n) ?></span>
+          <?php endforeach; ?>
         </div>
-      <?php endif; ?>
-
+      </div>
       <div class="stats-row">
         <div class="stat-cell">
           <span class="stat-label">Promedio</span>
@@ -96,10 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <span class="stat-val"><?= implode(', ', $moda) ?></span>
         </div>
       </div>
-
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

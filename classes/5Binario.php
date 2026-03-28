@@ -18,7 +18,6 @@ class Binario {
         return ($this->numero < 0 ? '-' : '') . $binario;
     }
 
-    // Devuelve los pasos del proceso de conversión
     public function pasos(): array {
         if ($this->numero === 0) return [['dividendo' => 0, 'cociente' => 0, 'resto' => 0]];
         $n = abs($this->numero);

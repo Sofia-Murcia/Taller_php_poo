@@ -30,4 +30,5 @@ class Calculadora {
     public function getB(): float { return $this->b; }
     public function getOperacion(): string { return $this->operacion; }
 }
+
 ?>

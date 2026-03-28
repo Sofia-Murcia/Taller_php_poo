@@ -55,15 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="form-block">
       <div class="field">
         <label for="numero">Número</label>
-        <input
-          type="number"
-          id="numero"
-          name="numero"
-          min="0"
-          value="<?= htmlspecialchars($numero) ?>"
-          placeholder="Ej: 10"
-          required
-        >
+        <input type="number" id="numero" name="numero" min="0"
+          value="<?= htmlspecialchars($numero) ?>" placeholder="Ej: 10" required>
       </div>
       <div class="field">
         <label for="operacion">Operación</label>
@@ -79,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($serie !== null): ?>
       <div class="result">
         <p class="result-label">
-          <?= $operacion === 'fibonacci' ? "Fibonacci de $numero términos" : "Pasos del factorial de $numero" ?>
+          <?= $operacion === 'fibonacci' ? "Fibonacci — $numero términos" : "Pasos del factorial de $numero" ?>
         </p>
         <div class="result-series">
           <?php foreach ($serie as $val): ?>
@@ -87,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php endforeach; ?>
         </div>
       </div>
-
       <?php if ($operacion === 'factorial' && !empty($serie)): ?>
         <div class="result">
           <p class="result-label"><?= $numero ?>! =</p>
@@ -97,6 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
   </main>
-
 </body>
 </html>

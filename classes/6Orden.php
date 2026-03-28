@@ -1,6 +1,6 @@
 <?php
 
-class ORDEN {
+class NodoArbol {
     public string $valor;
     public ?NodoArbol $izquierdo;
     public ?NodoArbol $derecho;
@@ -12,12 +12,9 @@ class ORDEN {
     }
 }
 
-class ArbolBinario {
+class ORDEN {
     private ?NodoArbol $raiz = null;
 
-    /**
-     * Construye el árbol a partir de preorden e inorden.
-     */
     public function construirDesdePreorderInorder(array $preorden, array $inorden): void {
         $this->raiz = $this->buildPI($preorden, $inorden);
     }
@@ -78,9 +75,6 @@ class ArbolBinario {
         $result[] = $nodo->valor;
     }
 
-    /**
-     * Genera representación visual del árbol como texto.
-     */
     public function visualizar(): string {
         if (!$this->raiz) return '';
         $lineas = [];
@@ -93,15 +87,10 @@ class ArbolBinario {
         $conector = $esUltimo ? '└── ' : '├── ';
         $lineas[] = $prefijo . $conector . $nodo->valor;
         $nuevoPrefijo = $prefijo . ($esUltimo ? '    ' : '│   ');
-        $hijos = array_filter([$nodo->izquierdo, $nodo->derecho]);
-        $hijos = array_values($hijos);
+        $hijos = array_values(array_filter([$nodo->izquierdo, $nodo->derecho]));
         foreach ($hijos as $i => $hijo) {
             $this->visualizarRec($hijo, $nuevoPrefijo, $i === count($hijos) - 1, $lineas);
         }
-    }
-
-    public function getRaiz(): ?NodoArbol {
-        return $this->raiz;
     }
 }
 ?>

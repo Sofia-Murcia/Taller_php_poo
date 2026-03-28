@@ -5,7 +5,6 @@ class Conjuntos {
     private array $B;
 
     public function __construct(array $A, array $B) {
-        // Elimina duplicados y reindexar
         $this->A = array_values(array_unique(array_map('intval', $A)));
         $this->B = array_values(array_unique(array_map('intval', $B)));
     }

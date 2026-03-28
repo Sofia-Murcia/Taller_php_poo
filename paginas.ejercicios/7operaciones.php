@@ -9,14 +9,12 @@ if (!isset($_SESSION['historial'])) {
 $resultado = null;
 $error     = '';
 
-// Borrar historial
 if (isset($_POST['borrar_historial'])) {
     $_SESSION['historial'] = [];
-    header('Location: calculadora.php');
+    header('Location: 7operaciones.php');
     exit;
 }
 
-// Calcular
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['calcular'])) {
     $a  = trim($_POST['a']  ?? '');
     $b  = trim($_POST['b']  ?? '');
@@ -30,16 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['calcular'])) {
         $calc      = new Calculadora((float)$a, (float)$b, $op);
         $resultado = $calc->calcular();
         if (!is_string($resultado)) {
-            // Guarda en historial (máx. 30 entradas)
             array_unshift($_SESSION['historial'], [
                 'expresion' => $calc->getExpresion(),
                 'resultado' => $resultado,
             ]);
-            if (count($_SESSION['historial']) > 30) {
-                array_pop($_SESSION['historial']);
-            }
+            if (count($_SESSION['historial']) > 30) array_pop($_SESSION['historial']);
         } else {
-            $error = $resultado;
+            $error     = $resultado;
             $resultado = null;
         }
     }
@@ -75,14 +70,9 @@ $historial = $_SESSION['historial'];
 
     <div class="calc-wrap">
 
-      <!-- CALCULADORA -->
       <div>
         <div class="calc-display">
-          <?php if ($resultado !== null): ?>
-            <?= htmlspecialchars($resultado) ?>
-          <?php else: ?>
-            0
-          <?php endif; ?>
+          <?= $resultado !== null ? htmlspecialchars($resultado) : '0' ?>
         </div>
 
         <form method="POST" class="form-block">
@@ -109,12 +99,11 @@ $historial = $_SESSION['historial'];
         </form>
       </div>
 
-      <!-- HISTORIAL -->
       <div class="history-panel">
         <p class="history-title">Historial (<?= count($historial) ?>)</p>
         <div class="history-list">
           <?php if (empty($historial)): ?>
-            <p style="font-family:var(--font-mono);font-size:.78rem;color:var(--muted);">Sin operaciones aún.</p>
+            <p style="font-family:var(--font-mono);font-size:.78rem;color:var(--muted)">Sin operaciones aún.</p>
           <?php else: ?>
             <?php foreach ($historial as $item): ?>
               <div class="history-item">
@@ -123,7 +112,6 @@ $historial = $_SESSION['historial'];
             <?php endforeach; ?>
           <?php endif; ?>
         </div>
-
         <?php if (!empty($historial)): ?>
           <form method="POST">
             <button type="submit" name="borrar_historial" class="btn btn-danger">Borrar historial</button>
@@ -134,6 +122,5 @@ $historial = $_SESSION['historial'];
     </div>
 
   </main>
-
 </body>
 </html>
