@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap');
 
 :root {
-  --bg: #0d0d0d;
-  --surface: #161616;
-  --surface2: #1f1f1f;
-  --border: #2a2a2a;
-  --accent: #c8f135;
-  --accent2: #ff6b35;
-  --text: #f0f0f0;
-  --muted: #666;
-  --radius: 4px;
-  --font-mono: 'Space Mono', monospace;
-  --font-display: 'Syne', sans-serif;
+  --bg:       #fdf6ff;
+  --surface:  #fff8fe;
+  --surface2: #f5eeff;
+  --border:   #e4d4f4;
+  --accent:   #b48bf2;   
+  --accent2:  #f2a2c8;  
+  --accent3:  #82dfc8;   
+  --text:     #3d2e52;
+  --muted:    #a898c0;
+  --radius:   10px;
+  --font-mono:    'DM Mono', monospace;
+  --font-display: 'Nunito', sans-serif;
 }
 
 *, *::before, *::after {
