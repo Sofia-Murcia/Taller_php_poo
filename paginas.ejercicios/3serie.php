@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($numeros)) {
             $error = 'No se encontraron números válidos en la entrada.';
         } else {
-            $obj      = new Estadistica($numeros);
+            $obj      = new Serie($numeros);
             $promedio = round($obj->promedio(), 4);
             $mediana  = round($obj->mediana(), 4);
             $moda     = $obj->moda();

@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (empty($pre)) {
             $error = 'No se encontraron nodos válidos.';
         } else {
-            $arbol = new ArbolBinario();
+            $arbol = new ORDEN();
             $arbol->construirDesdePreorderInorder($pre, $ino);
             $preResult  = $arbol->preorden();
             $inoResult  = $arbol->inorden();
